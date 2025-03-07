@@ -70,9 +70,9 @@ class Reseller_Access_Dashboard {
             return $content;
         }
         
-        // Check if user is a reseller
+        // Check if user has appropriate permissions
         if (!$this->is_reseller()) {
-            return $content . '<p>You must be logged in as a reseller to view this dashboard.</p>';
+            return $content . '<p>You must be logged in as a reseller or administrator to view this dashboard.</p>';
         }
         
         // Get the current user
@@ -147,15 +147,20 @@ class Reseller_Access_Dashboard {
     }
 
     /**
-     * Check if the current user is a reseller.
+     * Check if the current user is a reseller or administrator.
      *
      * @since    1.0.0
-     * @return   boolean    True if user is a reseller, false otherwise.
+     * @return   boolean    True if user is a reseller or administrator, false otherwise.
      */
     private function is_reseller() {
         // Check if user is logged in
         if (!is_user_logged_in()) {
             return false;
+        }
+        
+        // Also allow administrators to view the dashboard
+        if (current_user_can('manage_options')) {
+            return true;
         }
         
         // Check if user has the reseller role

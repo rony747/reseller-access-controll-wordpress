@@ -89,15 +89,20 @@ class Reseller_Access_Public {
     }
 
     /**
-     * Check if the current user is a reseller.
+     * Check if the current user is a reseller or administrator.
      *
      * @since    1.0.0
-     * @return   boolean    True if user is a reseller, false otherwise.
+     * @return   boolean    True if user is a reseller or administrator, false otherwise.
      */
     public function is_reseller() {
         // Check if user is logged in
         if ( ! is_user_logged_in() ) {
             return false;
+        }
+        
+        // Allow administrators to access reseller content
+        if ( current_user_can( 'manage_options' ) ) {
+            return true;
         }
         
         // Check if user has the reseller role
