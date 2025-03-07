@@ -1,0 +1,126 @@
+/**
+ * Admin styles for the Reseller Access plugin.
+ *
+ * @since 1.0.0
+ */
+
+/* Main container */
+.reseller-access-admin {
+    margin-top: 20px;
+}
+
+/* Container layout */
+.reseller-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.reseller-form-container {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+}
+
+.reseller-list-container {
+    flex: 2;
+    min-width: 500px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+}
+
+/* Form styling */
+.reseller-form .form-group {
+    margin-bottom: 15px;
+}
+
+.reseller-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.reseller-form input[type="text"],
+.reseller-form input[type="email"],
+.reseller-form input[type="password"] {
+    width: 100%;
+    padding: 8px;
+}
+
+.reseller-form .form-actions {
+    margin-top: 20px;
+}
+
+.reseller-form .required {
+    color: #d63638;
+}
+
+.reseller-form .description {
+    color: #646970;
+    font-style: italic;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+/* Messages */
+.reseller-message {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.reseller-message.success {
+    background-color: #f0f6e4;
+    color: #52854c;
+    border-left: 4px solid #52854c;
+}
+
+.reseller-message.error {
+    background-color: #fcf0f1;
+    color: #d63638;
+    border-left: 4px solid #d63638;
+}
+
+/* Table styling */
+.resellers-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.resellers-table th {
+    text-align: left;
+}
+
+/* Access restricted message in the front-end */
+.reseller-access-denied {
+    padding: 15px;
+    margin: 15px 0;
+    border-left: 4px solid #d63638;
+    background-color: #fcf0f1;
+    color: #333;
+}
+
+/* Metabox styling */
+#reseller_access_restriction .inside {
+    margin: 0;
+    padding: 10px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 782px) {
+    .reseller-container {
+        flex-direction: column;
+    }
+    
+    .reseller-form-container,
+    .reseller-list-container {
+        width: 100%;
+        max-width: none;
+    }
+}
