@@ -104,4 +104,39 @@ class Reseller_Access_Public {
         $user = wp_get_current_user();
         return in_array( 'reseller', (array) $user->roles );
     }
+    
+    /**
+     * Block resellers from accessing the WordPress admin.
+     *
+     * @since    1.0.0
+     */
+    public function block_reseller_admin_access() {
+        // If not on admin page, return
+        if ( ! is_admin() ) {
+            return;
+        }
+        
+        // If AJAX request, return (to allow frontend dashboard AJAX)
+        if ( wp_doing_ajax() ) {
+            return;
+        }
+        
+        // If not a reseller, return
+        if ( ! $this->is_reseller() ) {
+            return;
+        }
+        
+        // Get the dashboard page ID
+        $dashboard_page_id = get_option( 'reseller_access_dashboard_page', 0 );
+        
+        // If a dashboard page is set, redirect to it
+        if ( $dashboard_page_id ) {
+            wp_redirect( get_permalink( $dashboard_page_id ) );
+            exit;
+        } else {
+            // Otherwise redirect to the home page
+            wp_redirect( home_url() );
+            exit;
+        }
+    }
 }

@@ -1,0 +1,109 @@
+/**
+ * Frontend dashboard styles for the Reseller Access plugin.
+ *
+ * @since 1.0.0
+ */
+
+/* Dashboard wrapper */
+.reseller-dashboard-wrapper {
+    margin: 30px 0;
+}
+
+.reseller-dashboard {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+}
+
+.reseller-dashboard h2 {
+    margin-top: 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 24px;
+}
+
+/* Dashboard content */
+.dashboard-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.dashboard-section {
+    flex: 1;
+    min-width: 300px;
+}
+
+.dashboard-section h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+.reseller-form .form-group {
+    margin-bottom: 20px;
+}
+
+.reseller-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.reseller-form input[type="text"],
+.reseller-form input[type="email"],
+.reseller-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.reseller-form .required {
+    color: #e32;
+}
+
+.reseller-form .form-actions {
+    margin-top: 25px;
+}
+
+.reseller-form .button {
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+/* Update messages */
+.update-message {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    display: none;
+}
+
+.update-message.success {
+    background-color: #f0f9e6;
+    color: #4caf50;
+    border: 1px solid #4caf50;
+    display: block;
+}
+
+.update-message.error {
+    background-color: #fdf1f0;
+    color: #e32;
+    border: 1px solid #e32;
+    display: block;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .dashboard-content {
+        flex-direction: column;
+    }
+    
+    .dashboard-section {
+        width: 100%;
+    }
+}

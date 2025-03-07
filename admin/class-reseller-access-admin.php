@@ -14,7 +14,8 @@ class Reseller_Access_Admin {
      * @since    1.0.0
      */
     public function __construct() {
-        // Constructor code
+        // Register settings
+        add_action('admin_init', array($this, 'register_settings'));
     }
 
     /**
@@ -94,6 +95,55 @@ class Reseller_Access_Admin {
      */
     public function display_settings_page() {
         include_once RESELLER_ACCESS_PLUGIN_DIR . 'admin/partials/reseller-access-admin-settings.php';
+    }
+    
+    /**
+     * Register plugin settings.
+     *
+     * @since    1.0.0
+     */
+    public function register_settings() {
+        // Register settings group
+        register_setting('reseller_access_options', 'reseller_access_redirect_page');
+        register_setting('reseller_access_options', 'reseller_access_message');
+        
+        // Frontend dashboard settings
+        register_setting('reseller_access_options', 'reseller_access_enable_frontend_dashboard');
+        register_setting('reseller_access_options', 'reseller_access_dashboard_page', array($this, 'validate_dashboard_page'));
+        
+        // Debug current settings
+        $this->debug_dashboard_settings();
+    }
+    
+    /**
+     * Validate dashboard page setting and ensure it's being saved correctly.
+     *
+     * @since    1.0.0
+     * @param    mixed    $value    The value to validate.
+     * @return   mixed              The validated value.
+     */
+    public function validate_dashboard_page($value) {
+        // Convert to integer
+        $value = intval($value);
+        
+        // Log the value if it's being changed
+        error_log('Dashboard page setting being updated to: ' . $value);
+        
+        return $value;
+    }
+    
+    /**
+     * Debug dashboard settings.
+     *
+     * @since    1.0.0
+     */
+    private function debug_dashboard_settings() {
+        if (isset($_POST['reseller_access_dashboard_page'])) {
+            error_log('Dashboard page POST value: ' . $_POST['reseller_access_dashboard_page']);
+        }
+        
+        $current_value = get_option('reseller_access_dashboard_page', 0);
+        error_log('Current dashboard page setting: ' . $current_value);
     }
 
     /**

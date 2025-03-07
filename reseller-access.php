@@ -33,6 +33,19 @@ register_deactivation_hook( __FILE__, 'reseller_access_deactivate' );
  * This function runs when the plugin is activated.
  */
 function reseller_access_activate() {
+    // Create default settings
+    $default_settings = array(
+        'enable_frontend_dashboard' => 'yes',
+        'dashboard_page' => 0,
+    );
+    
+    // Add settings only if they don't exist
+    foreach ($default_settings as $key => $value) {
+        if (get_option('reseller_access_' . $key) === false) {
+            add_option('reseller_access_' . $key, $value);
+        }
+    }
+    
     // Add the Reseller role with capabilities
     add_role(
         'reseller',
@@ -44,6 +57,7 @@ function reseller_access_activate() {
             'publish_posts'          => false,
             'upload_files'           => false,
             'access_reseller_content' => true, // Custom capability for resellers
+            'access_frontend_dashboard' => true, // Custom capability for frontend dashboard
         )
     );
     

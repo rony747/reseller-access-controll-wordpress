@@ -56,6 +56,9 @@ class Reseller_Access {
         
         // Metaboxes for content restriction
         require_once RESELLER_ACCESS_PLUGIN_DIR . 'admin/class-reseller-access-metaboxes.php';
+        
+        // Frontend dashboard
+        require_once RESELLER_ACCESS_PLUGIN_DIR . 'public/class-reseller-access-dashboard.php';
     }
 
     /**
@@ -99,6 +102,23 @@ class Reseller_Access {
         
         // Redirect non-resellers
         $this->add_action( 'template_redirect', $plugin_public, 'check_access_restrictions' );
+        
+        // Prevent resellers from accessing admin
+        $this->add_action( 'admin_init', $plugin_public, 'block_reseller_admin_access' );
+        
+        // Handle frontend dashboard if enabled
+        if ( 'yes' === get_option( 'reseller_access_enable_frontend_dashboard', 'yes' ) ) {
+            $dashboard = new Reseller_Access_Dashboard();
+            $this->add_action( 'wp_enqueue_scripts', $dashboard, 'enqueue_styles' );
+            $this->add_action( 'wp_enqueue_scripts', $dashboard, 'enqueue_scripts' );
+            
+            // This content filter is critical for displaying the dashboard
+            $this->add_filter( 'the_content', $dashboard, 'display_dashboard', 99 ); // Higher priority to ensure it runs
+            
+            // Handle AJAX actions for the frontend dashboard
+            $this->add_action( 'wp_ajax_reseller_update_profile', $dashboard, 'update_profile' );
+            $this->add_action( 'wp_ajax_reseller_update_password', $dashboard, 'update_password' );
+        }
     }
 
     /**
